@@ -154,17 +154,13 @@ internal final class SonyCameraDiscoverer: UDPDeviceDiscoverer {
     public func parseXML(string: String, baseURL: URL, isCached: Bool, callback: @escaping (Bool) -> Void) {
         
         parseCameraXML(string: string, baseURL: baseURL, isCached: isCached, callback: callback)
-        parseTransferDeviceXML(string: string, baseURL: baseURL, isCached: isCached, callback: callback)
+        //parseTransferDeviceXML(string: string, baseURL: baseURL, isCached: isCached, callback: callback)
     }
     
     private func parseCameraXML(string: String, baseURL: URL, isCached: Bool, callback: @escaping (Bool) -> Void) {
         
         let parser = SonyCameraParser(xmlString: string)
         parser.parse { [weak self] (cameraDevice, error) in
-
-            if let err = error {        
-                print(err.localizedDescription)
-            }
             
             guard let camera = cameraDevice as? Camera else {
                 callback(false)
