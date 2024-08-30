@@ -239,12 +239,14 @@ internal final class SonyCameraDiscoverer: UDPDeviceDiscoverer {
                 guard let _strongSelf = strongSelf else {
                     return
                 }
-                
-                guard _transferDevice.contentDirectoryDevice?.actionFor(name: "Browse") != nil else {
-                    callback(false)
-                    _strongSelf.sendErrorToDelegate(error ?? CameraDiscoveryError.unknown)
-                    return
-                }
+
+                // contentDirectoryDevice = nil on a5100
+                // error leads to connection failure for (unrelated) capture features
+//                guard _transferDevice.contentDirectoryDevice?.actionFor(name: "Browse") != nil else {
+//                    callback(false)
+//                    _strongSelf.sendErrorToDelegate(error ?? CameraDiscoveryError.unknown)
+//                    return
+//                }
                 
                 callback(true)
                 _strongSelf.sendDeviceToDelegate(_transferDevice, isCached: isCached)
