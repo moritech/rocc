@@ -57,7 +57,12 @@ class SonyCameraDeviceInfoParser: NSObject, XMLParserDelegate {
         xmlParser = XMLParser(data: data)
         xmlParser?.delegate = self
         xmlParser?.shouldProcessNamespaces = true
-        xmlParser?.parse()
+        if !parser.parse() {
+            os_log(parser.parserError, log: log, type: .debug)
+            completion(nil, parser.parserError)
+        } else {
+            completion(parsedDeviceInfo, nil)
+        }
         
         Logger.log(message: "Beginning parsing", category: "DeviceInfoXMLParser", level: .debug)
         os_log("Beginning parsing", log: log, type: .debug)
