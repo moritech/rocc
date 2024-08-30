@@ -162,8 +162,6 @@ internal final class SonyCameraDiscoverer: UDPDeviceDiscoverer {
         let parser = SonyCameraParser(xmlString: string)
         parser.parse { [weak self] (cameraDevice, error) in
 
-            os_log("SonyCameraParser failed", log: log, type: .error)
-            print(error.localizedDescription)
             
             guard let camera = cameraDevice as? Camera else {
                 callback(false)
@@ -176,6 +174,7 @@ internal final class SonyCameraDiscoverer: UDPDeviceDiscoverer {
             
             guard let device = cameraDevice else {
                 callback(false)
+                print(error.localizedDescription)
                 strongSelf.sendErrorToDelegate(error ?? CameraDiscoveryError.unknown)
                 return
             }
