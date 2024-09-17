@@ -27,10 +27,10 @@ public struct StillCapture: CameraFunction {
         public struct Value: Equatable {
             
             /// The aspect ratio of the size
-            let aspectRatio: String?
+            public let aspectRatio: String?
             
             /// The size itself
-            let size: String
+            public let size: String
         }
         
         public var function: _CameraFunction
